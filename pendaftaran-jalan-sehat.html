@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pendaftaran Jalan Sehat - HUT RI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@500;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --merah-tua: #7a0d0d;
+    --merah: #b3121b;
+    --merah-terang: #e0212b;
+    --krem: #fdf6ee;
+    --putih: #ffffff;
+    --emas: #d9a441;
+    --tinta: #2a0a0a;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--merah-tua);
+    background-image:
+      radial-gradient(circle at 15% 10%, rgba(255,255,255,0.06) 0, transparent 45%),
+      radial-gradient(circle at 85% 90%, rgba(255,255,255,0.05) 0, transparent 40%);
+    font-family: 'Archivo', sans-serif;
+    color: var(--tinta);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    padding: 32px 16px 60px;
+  }
+
+  .kartu {
+    width: 100%;
+    max-width: 520px;
+    background: var(--krem);
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.35);
+    position: relative;
+  }
+
+  /* ---- HEADER ---- */
+  .header {
+    background: linear-gradient(160deg, var(--merah-terang), var(--merah) 55%, var(--merah-tua));
+    padding: 34px 26px 46px;
+    position: relative;
+    color: var(--putih);
+    overflow: hidden;
+  }
+
+  .header::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: repeating-linear-gradient(45deg, rgba(255,255,255,0.045) 0 2px, transparent 2px 14px);
+    pointer-events: none;
+  }
+
+  .eyebrow {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    opacity: 0.85;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .eyebrow::before {
+    content: "";
+    width: 18px;
+    height: 2px;
+    background: var(--emas);
+    display: inline-block;
+  }
+
+  h1.judul {
+    font-family: 'Anton', sans-serif;
+    font-weight: 400;
+    font-size: 54px;
+    line-height: 0.92;
+    letter-spacing: 0.01em;
+    margin-top: 10px;
+    -webkit-text-stroke: 1.5px rgba(0,0,0,0.15);
+    text-shadow: 0 3px 0 rgba(0,0,0,0.2);
+  }
+
+  h1.judul span { display: block; }
+  h1.judul .sehat { color: var(--emas); }
+
+  .subjudul {
+    margin-top: 10px;
+    font-size: 13.5px;
+    font-weight: 500;
+    max-width: 340px;
+    opacity: 0.92;
+    line-height: 1.5;
+  }
+
+  .info-strip {
+    margin-top: 22px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+
+  .info-chip {
+    background: rgba(0,0,0,0.18);
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 3px;
+    padding: 9px 8px;
+    font-family: 'Space Mono', monospace;
+  }
+
+  .info-chip .label {
+    font-size: 8.5px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.7;
+  }
+
+  .info-chip .val {
+    font-size: 12px;
+    font-weight: 700;
+    margin-top: 3px;
+  }
+
+  /* torn paper divider */
+  .robek {
+    position: absolute;
+    left: 0; right: 0; bottom: -1px;
+    height: 26px;
+    background: var(--krem);
+    clip-path: polygon(
+      0% 100%, 0% 40%, 3% 60%, 6% 30%, 9% 55%, 12% 20%, 15% 50%, 18% 35%,
+      21% 65%, 24% 25%, 27% 55%, 30% 40%, 33% 60%, 36% 30%, 39% 50%, 42% 20%,
+      45% 55%, 48% 35%, 51% 60%, 54% 25%, 57% 50%, 60% 40%, 63% 65%, 66% 30%,
+      69% 55%, 72% 20%, 75% 50%, 78% 35%, 81% 60%, 84% 25%, 87% 55%, 90% 40%,
+      93% 60%, 96% 30%, 100% 50%, 100% 100%
+    );
+  }
+
+  /* ---- FORM ---- */
+  .isi { padding: 40px 26px 30px; }
+
+  .rute-mini {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-family: 'Space Mono', monospace;
+    font-size: 9.5px;
+    color: var(--merah-tua);
+    flex-wrap: wrap;
+    margin-bottom: 28px;
+    opacity: 0.8;
+  }
+  .rute-mini .titik { color: var(--merah); font-weight: 700; }
+  .rute-mini .panah { opacity: 0.5; }
+
+  label {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--merah-tua);
+    margin-bottom: 7px;
+  }
+
+  .field { margin-bottom: 20px; }
+
+  input, select {
+    width: 100%;
+    border: none;
+    border-bottom: 2px solid #e4d7c8;
+    background: transparent;
+    padding: 10px 2px;
+    font-family: 'Archivo', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--tinta);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  input::placeholder { color: #b8a998; font-weight: 500; }
+
+  input:focus, select:focus { border-bottom-color: var(--merah); }
+
+  .row2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  button.kirim {
+    margin-top: 12px;
+    width: 100%;
+    background: var(--merah);
+    color: var(--putih);
+    border: none;
+    padding: 16px;
+    font-family: 'Anton', sans-serif;
+    font-size: 18px;
+    letter-spacing: 0.03em;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: transform 0.15s ease, background 0.15s ease;
+    position: relative;
+  }
+
+  button.kirim:hover { background: var(--merah-terang); transform: translateY(-1px); }
+  button.kirim:active { transform: translateY(0); }
+  button.kirim:disabled { opacity: 0.6; cursor: default; transform: none; }
+
+  .catatan {
+    margin-top: 16px;
+    font-size: 11px;
+    color: #9a8a7a;
+    text-align: center;
+    line-height: 1.5;
+  }
+
+  .sukses {
+    display: none;
+    text-align: center;
+    padding: 50px 26px 40px;
+  }
+
+  .sukses.tampil { display: block; }
+  .isi.sembunyi { display: none; }
+
+  .cek-ikon {
+    width: 64px; height: 64px;
+    border-radius: 50%;
+    background: var(--merah);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 18px;
+  }
+  .cek-ikon svg { width: 30px; height: 30px; }
+
+  .sukses h2 {
+    font-family: 'Anton', sans-serif;
+    font-size: 26px;
+    color: var(--merah-tua);
+    margin-bottom: 8px;
+  }
+
+  .sukses p {
+    font-size: 13.5px;
+    color: #6b5a4a;
+    line-height: 1.6;
+    max-width: 320px;
+    margin: 0 auto 4px;
+  }
+
+  .nomor-urut {
+    display: inline-block;
+    margin-top: 18px;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    background: #f1e6d8;
+    color: var(--merah-tua);
+    padding: 8px 16px;
+    border-radius: 20px;
+  }
+
+  .err {
+    font-size: 11.5px;
+    color: var(--merah-terang);
+    margin-top: 6px;
+    display: none;
+  }
+  .err.tampil { display: block; }
+
+  @media (prefers-reduced-motion: reduce) {
+    button.kirim { transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="kartu">
+  <div class="header">
+    <div class="eyebrow">HUT RI ke-81 &middot; Desa Watesumpak</div>
+    <h1 class="judul">
+      <span>JALAN</span>
+      <span class="sehat">SEHAT</span>
+    </h1>
+    <p class="subjudul">Daftar sekarang buat ikutan Jalan Sehat spesial Hari Kemerdekaan &mdash; lomba kebersihan, hiburan musik, dan ratusan doorprize menanti.</p>
+
+    <div class="info-strip">
+      <div class="info-chip">
+        <div class="label">Tanggal</div>
+        <div class="val">16 Agu 2026</div>
+      </div>
+      <div class="info-chip">
+        <div class="label">Waktu</div>
+        <div class="val">06.00 WITA</div>
+      </div>
+      <div class="info-chip">
+        <div class="label">Titik Kumpul</div>
+        <div class="val">Ponkesdes</div>
+      </div>
+    </div>
+
+    <div class="robek"></div>
+  </div>
+
+  <div class="isi" id="formArea">
+    <div class="rute-mini">
+      <span>Ponkesdes</span><span class="panah">→</span>
+      <span>Dsn. Krajan</span><span class="panah">→</span>
+      <span>Jl. Bambu Runcing</span><span class="panah">→</span>
+      <span>Lap. Watesumpak</span><span class="panah">→</span>
+      <span class="titik">Finish</span>
+    </div>
+
+    <form id="daftarForm">
+      <div class="field">
+        <label for="nama">Nama Lengkap</label>
+        <input type="text" id="nama" placeholder="Tulis nama kamu" required>
+      </div>
+
+      <div class="row2">
+        <div class="field">
+          <label for="wa">No. WhatsApp</label>
+          <input type="tel" id="wa" placeholder="0812xxxxxxx" required>
+        </div>
+        <div class="field">
+          <label for="jumlah">Jumlah Peserta</label>
+          <input type="number" id="jumlah" min="1" value="1" required>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="dusun">Asal Dusun / Alamat</label>
+        <input type="text" id="dusun" placeholder="Contoh: Dusun Krajan" required>
+        <div class="err" id="errMsg">Semua kolom wajib diisi dengan benar.</div>
+      </div>
+
+      <button type="submit" class="kirim" id="tombolKirim">DAFTAR SEKARANG</button>
+      <p class="catatan">Data kamu hanya dipakai panitia untuk keperluan acara Jalan Sehat.</p>
+    </form>
+  </div>
+
+  <div class="sukses" id="suksesArea">
+    <div class="cek-ikon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="20 6 9 17 4 12"></polyline>
+      </svg>
+    </div>
+    <h2>Pendaftaran Berhasil!</h2>
+    <p>Sampai jumpa di garis start ya. Datang 15 menit sebelum acara mulai di Ponkesdes Desa Watesumpak.</p>
+    <div class="nomor-urut" id="nomorUrut">PESERTA #001</div>
+  </div>
+</div>
+
+<script>
+(async function() {
+  const form = document.getElementById('daftarForm');
+  const tombol = document.getElementById('tombolKirim');
+  const errMsg = document.getElementById('errMsg');
+  const formArea = document.getElementById('formArea');
+  const suksesArea = document.getElementById('suksesArea');
+  const nomorUrut = document.getElementById('nomorUrut');
+
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    errMsg.classList.remove('tampil');
+
+    const nama = document.getElementById('nama').value.trim();
+    const wa = document.getElementById('wa').value.trim();
+    const jumlah = document.getElementById('jumlah').value;
+    const dusun = document.getElementById('dusun').value.trim();
+
+    if (!nama || !wa || !dusun || !jumlah || Number(jumlah) < 1) {
+      errMsg.classList.add('tampil');
+      return;
+    }
+
+    tombol.disabled = true;
+    tombol.textContent = 'MENGIRIM...';
+
+    const entry = {
+      nama, wa, jumlah, dusun,
+      waktu: new Date().toISOString()
+    };
+
+    try {
+      const id = 'pendaftar:' + Date.now() + '-' + Math.random().toString(36).slice(2, 8);
+      const result = await window.storage.set(id, JSON.stringify(entry), true);
+
+      if (!result) throw new Error('Gagal menyimpan data');
+
+      // hitung nomor urut peserta dari total pendaftar yang tersimpan
+      let nomor = 1;
+      try {
+        const list = await window.storage.list('pendaftar:', true);
+        if (list && list.keys) nomor = list.keys.length;
+      } catch (e) { /* biarkan default 1 kalau gagal hitung */ }
+
+      nomorUrut.textContent = 'PESERTA #' + String(nomor).padStart(3, '0');
+      formArea.classList.add('sembunyi');
+      suksesArea.classList.add('tampil');
+    } catch (err) {
+      console.error('Storage error:', err);
+      errMsg.textContent = 'Gagal mengirim data. Coba lagi ya.';
+      errMsg.classList.add('tampil');
+      tombol.disabled = false;
+      tombol.textContent = 'DAFTAR SEKARANG';
+    }
+  });
+})();
+</script>
+
+</body>
+</html>
